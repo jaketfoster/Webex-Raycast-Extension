@@ -5,7 +5,7 @@ import { seedMessageCache } from "./cache-utils";
 import RoomDetail from "./room-detail";
 import LogoutAction from "./logout-action";
 
-export default function SendMessageToRoom({ roomId, roomTitle }: { roomId: string; roomTitle: string }) {
+export default function SendMessageToRoom({ roomId, roomTitle, parentId }: { roomId: string; roomTitle: string; parentId?: string }) {
   const { data: me } = usePromise(fetchMe);
   const { push } = useNavigation();
 
@@ -17,7 +17,7 @@ export default function SendMessageToRoom({ roomId, roomTitle }: { roomId: strin
     }
     try {
       await showToast({ style: Toast.Style.Animated, title: "Sending…" });
-      await sendMessage(roomId, values.text, filePath);
+      await sendMessage(roomId, values.text, filePath, parentId);
       await showToast({ style: Toast.Style.Success, title: "Message sent" });
 
       seedMessageCache(roomId, {
@@ -26,6 +26,7 @@ export default function SendMessageToRoom({ roomId, roomTitle }: { roomId: strin
         text: values.text,
         personId: me?.id ?? "",
         personEmail: me?.emails[0] ?? "",
+        parentId,
         created: new Date().toISOString(),
       });
 

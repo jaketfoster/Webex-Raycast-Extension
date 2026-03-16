@@ -242,12 +242,13 @@ export async function editMessage(messageId: string, roomId: string, text: strin
   }
 }
 
-export async function sendMessage(roomId: string, text: string, filePath?: string) {
+export async function sendMessage(roomId: string, text: string, filePath?: string, parentId?: string) {
   const accessToken = await authorize();
   if (filePath) {
     const form = new FormData();
     form.set("roomId", roomId);
     if (text) form.set("text", text);
+    if (parentId) form.set("parentId", parentId);
     form.set("files", fileFromSync(filePath));
     const response = await fetch(`${BASE_URL}/messages`, {
       method: "POST",
@@ -262,7 +263,7 @@ export async function sendMessage(roomId: string, text: string, filePath?: strin
     const response = await fetch(`${BASE_URL}/messages`, {
       method: "POST",
       headers: h,
-      body: JSON.stringify({ roomId, text }),
+      body: JSON.stringify({ roomId, text, ...(parentId && { parentId }) }),
     });
     if (!response.ok) {
       throw new Error(`${response.statusText} (HTTP ${response.status})`);

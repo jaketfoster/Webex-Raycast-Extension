@@ -43,7 +43,7 @@ export default function RoomDetail({ roomId, roomTitle }: { roomId: string; room
     if (!text) return;
     try {
       await showToast({ style: Toast.Style.Animated, title: "Sending…" });
-      await sendMessage(roomId, text);
+      await sendMessage(roomId, text, undefined, threadFilter !== "all" ? threadFilter : undefined);
       setDraft("");
       await showToast({ style: Toast.Style.Success, title: "Message sent" });
       revalidate();

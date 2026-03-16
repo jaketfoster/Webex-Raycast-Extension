@@ -39,9 +39,7 @@ export default function MessageActions({
   return (
     <ActionPanel>
       <Action title="Send Message" icon={Icon.Message} onAction={onSend} />
-      {replyCount ? (
-        <Action title="Open Thread" icon={Icon.Bubble} onAction={() => onSetThreadFilter(msg.id)} />
-      ) : null}
+      <Action title="Open Thread" icon={Icon.Bubble} onAction={() => onSetThreadFilter(msg.id)} />
       {myId === msg.personId ? (
         <Action
           title="Edit Message"
@@ -83,7 +81,7 @@ export default function MessageActions({
         title="Send File"
         icon={Icon.Upload}
         shortcut={{ modifiers: ["cmd", "shift"], key: "f" }}
-        onAction={() => push(<SendMessageToRoom roomId={roomId} roomTitle={roomTitle} />)}
+        onAction={() => push(<SendMessageToRoom roomId={roomId} roomTitle={roomTitle} parentId={threadFilter !== "all" ? threadFilter : undefined} />)}
       />
       <Action
         title={showDetail ? "Hide Detail" : "Show Detail"}
