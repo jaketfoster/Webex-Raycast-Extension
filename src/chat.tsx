@@ -116,6 +116,7 @@ export default function Chat() {
                 <Action
                   title="Open in Webex"
                   icon={Icon.AppWindow}
+                  shortcut={{ modifiers: ["cmd"], key: "o" }}
                   onAction={() => open(`webexteams://im?space=${decodeRoomUUID(room.id)}`)}
                 />
                 <Action.CopyToClipboard title="Copy Room Id" content={room.id} />

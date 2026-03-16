@@ -93,6 +93,7 @@ export default function MessageActions({
       <Action
         title="Open in Webex"
         icon={Icon.AppWindow}
+        shortcut={{ modifiers: ["cmd"], key: "o" }}
         onAction={() => open(`webexteams://im?space=${decodeRoomUUID(roomId)}`)}
       />
       {hasFiles

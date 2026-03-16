@@ -54,7 +54,7 @@ export default function Meetings() {
           ]}
           actions={
             <ActionPanel>
-              <Action.OpenInBrowser title="Join Meeting" url={meeting.webLink} />
+              <Action.OpenInBrowser title="Join Meeting" url={meeting.webLink} icon={Icon.Video} shortcut={{ modifiers: ["cmd"], key: "o" }} />
               <Action.CopyToClipboard title="Copy Meeting Link" content={meeting.webLink} />
               <Action.Push
                 title="Create Meeting"
